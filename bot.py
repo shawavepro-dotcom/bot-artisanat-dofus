@@ -15,4 +15,3 @@ async def on_ready():
     print(f"Bot connecté : {bot.user}")
 
 bot.run(os.getenv("TOKEN"))
-Commande ECHO activ�e.
