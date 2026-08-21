@@ -13,4 +13,3 @@ class Database:
 
     async def close(self):
         await self.pool.close()
-        Commande ECHO activ�e.
