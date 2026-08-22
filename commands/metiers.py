@@ -14,17 +14,15 @@ class Metiers(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(
-        name="metiers",
-        description="Afficher la liste des métiers disponibles."
-    )
+    @app_commands.command(name="metiers", description="Affiche la liste des métiers disponibles.")
     async def metiers(self, interaction: discord.Interaction):
-
         embed = discord.Embed(
             title="Liste des métiers disponibles",
-            description="\n".join([f"• {m.capitalize()}" for m in METIERS]),
             color=discord.Color.green()
         )
+
+        for m in METIERS:
+            embed.add_field(name=m.capitalize(), value="Disponible", inline=True)
 
         await interaction.response.send_message(embed=embed)
 
