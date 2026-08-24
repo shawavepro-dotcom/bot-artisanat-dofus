@@ -30,8 +30,12 @@ class Recherche(commands.Cog):
             )
 
             for row in rows:
-                user = interaction.guild.get_member(row["user_id"])
-                nom = user.display_name if user else f"Utilisateur {row['user_id']}"
+                user_id = int(row["user_id"])
+                user = interaction.guild.get_member(user_id)
+                if user:
+                    nom = user.mention
+                else:
+                    nom = f"Utilisateur inconnu (ID: {user_id})"
                 embed.add_field(
                     name=nom,
                     value=f"Niveau {row['niveau']}",
