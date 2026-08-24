@@ -1,6 +1,7 @@
 import asyncpg
 import os
 import asyncio
+import traceback
 
 async def init_database():
     """Initialise la base de données avec les tables nécessaires."""
@@ -9,6 +10,7 @@ async def init_database():
         print("❌ DATABASE_URL non définie !")
         return False
     
+    conn = None
     try:
         conn = await asyncpg.connect(dsn)
         print("✅ Connexion à la base de données établie")
@@ -24,12 +26,20 @@ async def init_database():
         """)
         print("✅ Table 'artisans' créée/vérifiée avec clé primaire composite")
         
-        await conn.close()
         return True
-    except Exception as e:
-        print(f"❌ Erreur lors de l'initialisation : {e}")
+    except asyncpg.PostgresError as e:
+        print(f"❌ Erreur PostgreSQL lors de l'initialisation : {e}")
+        traceback.print_exc()
         return False
+    except Exception as e:
+        print(f"❌ Erreur inattendue lors de l'initialisation : {e}")
+        traceback.print_exc()
+        return False
+    finally:
+        if conn:
+            await conn.close()
 
 if __name__ == "__main__":
     success = asyncio.run(init_database())
     exit(0 if success else 1)
+
