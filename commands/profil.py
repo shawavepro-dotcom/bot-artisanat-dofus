@@ -12,7 +12,7 @@ class Profil(commands.Cog):
     async def profil(self, interaction: discord.Interaction, membre: discord.Member = None):
         try:
             cible = membre or interaction.user
-            user_id = cible.id
+            user_id = str(cible.id)
 
             async with self.bot.db.pool.acquire() as conn:
                 rows = await conn.fetch(

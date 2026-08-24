@@ -11,7 +11,7 @@ class Referencer(commands.Cog):
     @app_commands.describe(metier="Le métier à ajouter", niveau="Votre niveau dans ce métier")
     async def referencer(self, interaction: discord.Interaction, metier: str, niveau: int):
         try:
-            user_id = interaction.user.id
+            user_id = str(interaction.user.id)
 
             async with self.bot.db.pool.acquire() as conn:
                 await conn.execute(
