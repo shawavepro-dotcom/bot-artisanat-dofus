@@ -2,6 +2,7 @@ import os
 import discord
 from discord.ext import commands
 from database import Database
+from init_db import init_database
 import asyncio
 
 intents = discord.Intents.default()
@@ -15,6 +16,8 @@ bot.db = Database()
 @bot.event
 async def on_ready():
     await bot.db.connect()
+    # Initialiser la base de données (créer tables si nécessaire)
+    await init_database()
     await bot.tree.sync()
     print(f"Bot connecté : {bot.user}")
 
@@ -30,3 +33,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
