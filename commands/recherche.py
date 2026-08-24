@@ -33,7 +33,7 @@ class Recherche(commands.Cog):
                 user_id = int(row["user_id"])
                 user = interaction.guild.get_member(user_id)
                 if user:
-                    nom = user.mention
+                    nom = user.display_name
                 else:
                     nom = f"Utilisateur inconnu (ID: {user_id})"
                 embed.add_field(
