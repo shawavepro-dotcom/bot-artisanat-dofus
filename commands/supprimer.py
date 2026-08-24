@@ -11,7 +11,7 @@ class Supprimer(commands.Cog):
     @app_commands.describe(metier="Le métier que vous souhaitez retirer de votre profil.")
     async def supprimer(self, interaction: discord.Interaction, metier: str):
         try:
-            user_id = interaction.user.id
+            user_id = str(interaction.user.id)
 
             async with self.bot.db.pool.acquire() as conn:
                 result = await conn.execute(
