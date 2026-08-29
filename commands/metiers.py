@@ -24,7 +24,7 @@ class Metiers(commands.Cog):
         for m in METIERS:
             embed.add_field(name=m.capitalize(), value="Disponible", inline=True)
 
-        await interaction.response.send_message(embed=embed)
+        await interaction.response.send_message(embed=embed, ephemeral=True)
 
 async def setup(bot):
     await bot.add_cog(Metiers(bot))
