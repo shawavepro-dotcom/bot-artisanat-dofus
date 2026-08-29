@@ -39,7 +39,7 @@ class Profil(commands.Cog):
                     inline=False
                 )
 
-            await interaction.response.send_message(embed=embed)
+            await interaction.response.send_message(embed=embed, ephemeral=True)
         except Exception as e:
             print(f"❌ Erreur dans /profil : {e}")
             traceback.print_exc()
