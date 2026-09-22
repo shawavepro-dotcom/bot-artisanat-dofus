@@ -3,7 +3,7 @@ from discord import app_commands
 from discord.ext import commands
 
 METIERS = [
-    "alchimiste", "bijoutier", "boucher", "bricoleur",
+    "alchimiste", "bijoutier", "bricoleur",
     "bûcheron", "chasseur", "cordomage", "cordonnier", "costumage",
     "façomage", "forgeron", "forgemage", "joaillomage", "mineur",
     "paysan", "pêcheur", "sculptemage", "sculpteur",
