@@ -3,10 +3,10 @@ from discord import app_commands
 from discord.ext import commands
 
 METIERS = [
-    "alchimiste", "bijoutier", "boucher", "boulanger", "bricoleur",
+    "alchimiste", "bijoutier", "boucher", "bricoleur",
     "bûcheron", "chasseur", "cordomage", "cordonnier", "costumage",
     "façomage", "forgeron", "forgemage", "joaillomage", "mineur",
-    "paysan", "pêcheur", "poisonnier", "sculptemage", "sculpteur",
+    "paysan", "pêcheur", "sculptemage", "sculpteur",
     "tailleur"
 ]
 
@@ -28,3 +28,4 @@ class Metiers(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Metiers(bot))
+
