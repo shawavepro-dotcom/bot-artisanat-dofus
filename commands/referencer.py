@@ -17,10 +17,14 @@ class Referencer(commands.Cog):
         choices = [m for m in METIERS if m.startswith(current.lower())]
         return [app_commands.Choice(name=m.capitalize(), value=m) for m in choices[:25]]
 
-    @app_commands.command(name="referencer", description="Ajoute un métier à votre profil artisan.")
-    @app_commands.describe(metier="Le métier à ajouter", niveau="Votre niveau dans ce métier")
+    @app_commands.command(name="referencer", description="Ajoute un métier à un profil artisan.")
+    @app_commands.describe(
+        metier="Le métier à ajouter",
+        niveau="Le niveau dans ce métier",
+        utilisateur="L'utilisateur à référencer (optionnel - vous par défaut)"
+    )
     @app_commands.autocomplete(metier=metier_autocomplete)
-    async def referencer(self, interaction: discord.Interaction, metier: str, niveau: int):
+    async def referencer(self, interaction: discord.Interaction, metier: str, niveau: int, utilisateur: discord.User = None):
         try:
             metier_lower = metier.lower()
             
@@ -32,7 +36,9 @@ class Referencer(commands.Cog):
                 )
                 return
             
-            user_id = str(interaction.user.id)
+            # Si aucun utilisateur n'est spécifié, utiliser l'utilisateur qui a lancé la commande
+            target_user = utilisateur if utilisateur else interaction.user
+            user_id = str(target_user.id)
 
             async with self.bot.db.pool.acquire() as conn:
                 await conn.execute(
@@ -46,7 +52,7 @@ class Referencer(commands.Cog):
                 )
 
             await interaction.response.send_message(
-                f"✅ Métier **{metier.capitalize()}** enregistré avec le niveau **{niveau}**.",
+                f"✅ Métier **{metier.capitalize()}** enregistré avec le niveau **{niveau}** pour {target_user.mention}.",
                 ephemeral=True
             )
         except Exception as e:
