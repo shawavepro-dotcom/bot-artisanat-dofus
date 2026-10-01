@@ -10,6 +10,7 @@ import traceback
 # Configuration
 SALON_ID = 1534855459415261185  # ID du salon pour publier
 EMBED_COLOR = discord.Color.gold()
+OWNER_ID = 1400924331479142511  # ID Discord de Biafina
 
 class Almanax(commands.Cog):
     def __init__(self, bot):
@@ -113,11 +114,18 @@ class Almanax(commands.Cog):
 
     @app_commands.command(
         name="test-almanax",
-        description="Teste l'affichage du bonus Almanax du mois en cours (admin)"
+        description="Teste l'affichage du bonus Almanax du mois en cours (Biafina only)"
     )
-    @app_commands.checks.has_permissions(administrator=True)
     async def test_almanax(self, interaction: discord.Interaction):
         """Commande de test pour voir le rendu avant la vraie publication"""
+        # Vérifier que c'est Biafina
+        if interaction.user.id != OWNER_ID:
+            await interaction.response.send_message(
+                "❌ Cette commande est réservée à Biafina!",
+                ephemeral=True
+            )
+            return
+        
         try:
             month_name = self.get_current_month_fr()
             embed = self.create_embed(month_name)
