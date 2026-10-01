@@ -14,6 +14,7 @@ EMBED_COLOR = discord.Color.gold()
 class Almanax(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.last_published_month = None  # Track du dernier mois publié
         self.publication_loop.start()
 
     def cog_unload(self):
@@ -65,8 +66,13 @@ class Almanax(commands.Cog):
             now_fr = datetime.now(tz_fr)
             
             # Vérifier si c'est le 1er du mois à 18:00
-            if now_fr.day == 1 and now_fr.hour == 18 and now_fr.minute == 0:
+            # ET qu'on n'a pas déjà publié ce mois
+            current_month = now_fr.month
+            
+            if (now_fr.day == 1 and now_fr.hour == 18 and now_fr.minute == 0 
+                and self.last_published_month != current_month):
                 await self.publish_monthly_almanax()
+                self.last_published_month = current_month  # Marquer comme publié
         except Exception as e:
             print(f"❌ Erreur dans publication_loop : {e}")
             traceback.print_exc()
