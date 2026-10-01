@@ -5,7 +5,7 @@ from discord.ext import commands
 METIERS = [
     "alchimiste", "bijoutier", "bricoleur",
     "bûcheron", "chasseur", "cordomage", "cordonnier", "costumage",
-    "façomage", "forgeron", "forgemage", "joaillomage", "mineur",
+    "eleveur", "façomage", "façonneur", "forgeron", "forgemage", "joaillomage", "mineur",
     "paysan", "pêcheur", "sculptemage", "sculpteur",
     "tailleur"
 ]
